@@ -34,6 +34,14 @@ set(Gf_complete_CPPFLAGS
     "-I${KFS_EXTERNAL_PROJECT_DIR}${Gf_complete}/include")
 set(Gf_complete_CC        ${CMAKE_C_COMPILER})
 set(Gf_complete_PREFIX    ${CMAKE_CURRENT_BINARY_DIR}/${Gf_complete})
+set(Gf_complete_INCLUDE ${Gf_complete_PREFIX}/include)
+set(Gf_complete_LIB_DIR ${Gf_complete_PREFIX}/lib/)
+set(Gf_complete_STATIC_LIB
+    ${Gf_complete_LIB_DIR}${CMAKE_STATIC_LIBRARY_PREFIX}gf_complete${CMAKE_STATIC_LIBRARY_SUFFIX}
+)
+set(Gf_complete_SHARED_LIB
+    ${Gf_complete_LIB_DIR}${CMAKE_SHARED_LIBRARY_PREFIX}gf_complete${CMAKE_SHARED_LIBRARY_SUFFIX}
+)
 ExternalProject_Add(Gf_complete_proj
     DOWNLOAD_COMMAND  ""
     SOURCE_DIR        ${KFS_EXTERNAL_PROJECT_DIR}${Gf_complete}
@@ -44,14 +52,7 @@ ExternalProject_Add(Gf_complete_proj
         --enable-shared=yes
         --prefix=${Gf_complete_PREFIX}
     BUILD_COMMAND ${MAKE}
-)
-set(Gf_complete_INCLUDE ${Gf_complete_PREFIX}/include)
-set(Gf_complete_LIB_DIR ${Gf_complete_PREFIX}/lib/)
-set(Gf_complete_STATIC_LIB
-    ${Gf_complete_LIB_DIR}${CMAKE_STATIC_LIBRARY_PREFIX}gf_complete${CMAKE_STATIC_LIBRARY_SUFFIX}
-)
-set(Gf_complete_SHARED_LIB
-    ${Gf_complete_LIB_DIR}${CMAKE_SHARED_LIBRARY_PREFIX}gf_complete${CMAKE_SHARED_LIBRARY_SUFFIX}
+    BUILD_BYPRODUCTS ${Gf_complete_INCLUDE} ${Gf_complete_LIB_DIR} ${Gf_complete_STATIC_LIB} ${Gf_complete_SHARED_LIB}
 )
 
 set(Jerasure          "jerasure")
@@ -59,6 +60,14 @@ set(Jerasure_CPPFLAGS
     "-I${KFS_EXTERNAL_PROJECT_DIR}${Jerasure}/include -I${Gf_complete_INCLUDE}")
 set(Jerasure_LDFLAGS  "-L${Gf_complete_LIB_DIR}")
 set(Jerasure_PREFIX   ${CMAKE_CURRENT_BINARY_DIR}/${Jerasure})
+set(Jerasure_INCLUDE ${Jerasure_PREFIX}/include)
+set(Jerasure_LIB_DIR ${Jerasure_PREFIX}/lib/)
+set(Jerasure_STATIC_LIB
+    ${Jerasure_LIB_DIR}${CMAKE_STATIC_LIBRARY_PREFIX}Jerasure${CMAKE_STATIC_LIBRARY_SUFFIX}
+)
+set(Jerasure_SHARED_LIB
+    ${Jerasure_LIB_DIR}${CMAKE_SHARED_LIBRARY_PREFIX}Jerasure${CMAKE_SHARED_LIBRARY_SUFFIX}
+)
 ExternalProject_Add(Jerasure_proj
     DEPENDS           Gf_complete_proj
     DOWNLOAD_COMMAND  ""
@@ -71,14 +80,7 @@ ExternalProject_Add(Jerasure_proj
         --enable-shared=yes
         --prefix=${Jerasure_PREFIX}
     BUILD_COMMAND ${MAKE}
-)
-set(Jerasure_INCLUDE ${Jerasure_PREFIX}/include)
-set(Jerasure_LIB_DIR ${Jerasure_PREFIX}/lib/)
-set(Jerasure_STATIC_LIB
-    ${Jerasure_LIB_DIR}${CMAKE_STATIC_LIBRARY_PREFIX}Jerasure${CMAKE_STATIC_LIBRARY_SUFFIX}
-)
-set(Jerasure_SHARED_LIB
-    ${Jerasure_LIB_DIR}${CMAKE_SHARED_LIBRARY_PREFIX}Jerasure${CMAKE_SHARED_LIBRARY_SUFFIX}
+    BUILD_BYPRODUCTS ${Jerasure_INCLUDE} ${Jerasure_LIB_DIR} ${Jerasure_STATIC_LIB} ${Jerasure_SHARED_LIB}
 )
 
 install (FILES ${Gf_complete_STATIC_LIB} ${Jerasure_STATIC_LIB}

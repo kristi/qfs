@@ -83,8 +83,8 @@ if (${cmake_use_target_property})
     get_target_property (metaserver_location metaserver LOCATION)
     get_target_property (chunkserver_location chunkserver LOCATION)
 else (${cmake_use_target_property})
-    set (metaserver_location $<TARGET_FILE:metaserver)
-    set (chunkserver_location $<TARGET_FILE:chunkserver)
+    set (metaserver_location $<TARGET_FILE:metaserver>)
+    set (chunkserver_location $<TARGET_FILE:chunkserver>)
 endif (${cmake_use_target_property})
 
 add_custom_target (

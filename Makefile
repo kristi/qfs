@@ -24,6 +24,8 @@
 BUILD_TYPE=release
 CMAKE_OPTIONS=-D CMAKE_BUILD_TYPE=RelWithDebInfo
 CMAKE=cmake
+NINJA=ninja
+NINJA_OPTIONS=
 MAKE_OPTIONS=
 QFSTEST_OPTIONS=
 JAVA_BUILD_OPTIONS=
@@ -43,6 +45,14 @@ run-cmake: dir
 .PHONY: build
 build: run-cmake
 	cd build/${BUILD_TYPE} && $(MAKE) ${MAKE_OPTIONS} install
+
+.PHONY: run-cmake-ninja
+run-cmake-ninja: dir
+	cd build/${BUILD_TYPE} && ${CMAKE} ${CMAKE_OPTIONS} -G Ninja ../..
+
+.PHONY: ninja
+ninja: run-cmake-ninja
+	cd build/${BUILD_TYPE} && ${NINJA} ${NINJA_OPTIONS} install
 
 .PHONY: java
 java: build
